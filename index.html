@@ -18,6 +18,13 @@
         <div class="main">
            <div class="widget">
                <h3>Widget 01</h3>
+               <div id="notepad">
+                   <textarea id="note-area" name="message" rows="20" cols="40">
+                   </textarea>
+                   <p>
+                   <button id="saveNoteBtn"></button>
+                   </p>
+               </div>
            </div>
            <div class="widget">
                <h3>Widget 02</h3>
@@ -31,6 +38,14 @@
 </body>
 
 <script>
+    try{
+        var loadNotes = localStorage.getItem("notes");
+    }
+    catch(err){
+        var loadNotes = "Enter your notes here and click save, if they don't show because u didn't save, not our problem >:)";
+    }
+    $('note-area').val(loadNotes);
+
     var sp = "/"
     var today = new Date();
 
@@ -41,11 +56,16 @@
     if(dd < 10){
         dd = '0' + dd;
     }
-    if(mm < 10){
+    if(mm < 10)
         mm = '0' + mm;
     }
 
     $('#date').html(mm+sp+dd+sp+yyyy);
+
+    $('notepad').click(function(){
+        var currentNotes = $('note-area').val();
+        localStorage.setItem("notes", currentNotes);
+    });
 </script>
 </html>
 
